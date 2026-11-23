@@ -2,14 +2,15 @@ package concurrency;
 
 public class TwoThreadsDemo {
 
-    private static StringBuffer sb = new StringBuffer(); // StringBuffer is thread-safe
+    private static final StringBuffer sb = new StringBuffer(); // StringBuffer is thread-safe
 
     private static void log(String s) {
-        sb.append(s).append("\n");
+        sb.append(s + "\n");
+//        sb.append(s).append("\n"); // this can cause splitting two .append() calls between 2 threads
     }
 
     private static class ThreadExample implements Runnable {
-        private String name;
+        private final String name;
 
         public ThreadExample(String name) {
             this.name = name;
@@ -43,6 +44,8 @@ public class TwoThreadsDemo {
             throw new RuntimeException(e);
         }
 
+        System.out.println();
+        System.out.println("========================");
         System.out.println("End of main");
         System.out.println("Result: \n" + sb);
         System.out.println("End of result!");
