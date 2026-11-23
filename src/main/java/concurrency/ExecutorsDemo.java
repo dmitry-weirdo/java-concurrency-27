@@ -43,7 +43,8 @@ public class ExecutorsDemo {
 
         int totalThreads = 10;
         for (int i = 0; i < totalThreads; i++) {
-            Future<?> future = executorService.submit(new IntegerGenerator());
+            IntegerGenerator integerGenerator = new IntegerGenerator();
+            Future<?> future = executorService.submit(integerGenerator);
 
             results.add(future);
         }
