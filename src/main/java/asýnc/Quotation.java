@@ -23,7 +23,7 @@ public record Quotation(String agency, int price) {
     private static Quotation readFromAgency(String agencyName) {
         try {
             if (debug) {
-                System.out.printf("Reading quotation from Agency %s in thread %s", agencyName, Thread.currentThread());
+                System.out.printf("Reading quotation from Agency %s in thread %s %n", agencyName, Thread.currentThread());
             }
 
             Thread.sleep(random.nextInt(80, 120));

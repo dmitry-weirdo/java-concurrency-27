@@ -3,10 +3,12 @@ package asýnc;
 import java.time.Duration;
 import java.time.Instant;
 
-public class SingleThreadCalls {
+public class GetQuotationSingleThread {
 
     static void main() {
         var start = Instant.now();
+
+        Quotation.debug = true;
 
         var quotationA = Quotation.readFromA();
         var quotationB = Quotation.readFromB();
