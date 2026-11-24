@@ -1,0 +1,16 @@
+package concurrency;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ParallelStreamsDemo {
+
+    static void main() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        list
+                .stream()
+                .parallel() // threads will be ForkJoinPool
+                .forEach(v -> System.out.println(Thread.currentThread().getName() + ": " + v));
+    }
+}
