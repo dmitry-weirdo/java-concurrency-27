@@ -17,7 +17,7 @@ public class GetQuotationCompletableFuture {
         Supplier<Quotation> readFromC = Quotation::readFromC;
 
         // will execute on ForkJoinPool threads
-        // wil run concurrently
+        // will run concurrently
         CompletableFuture<Quotation> cfa = CompletableFuture.supplyAsync(readFromA);
         CompletableFuture<Quotation> cfb = CompletableFuture.supplyAsync(readFromB);
         CompletableFuture<Quotation> cfc = CompletableFuture.supplyAsync(readFromC);
