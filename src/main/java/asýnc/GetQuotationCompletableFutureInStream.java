@@ -20,6 +20,7 @@ public class GetQuotationCompletableFutureInStream {
 
         var jobs = List.of(readFromA, readFromB, readFromC);
 
+/*
         var results = new ArrayList<Quotation>();
 
         jobs
@@ -28,10 +29,27 @@ public class GetQuotationCompletableFutureInStream {
                 .map(CompletableFuture::supplyAsync)
                 .map(cf -> cf.thenApply(results::add)) // !!! this is a race condition if the stream is parallel
                 .forEach(CompletableFuture::join); // wait for every CF to complete
+*/
+
+        var tasks = jobs
+                .stream() // !!! NO parallel
+                .map(CompletableFuture::supplyAsync)
+                .toList();
+
+        var doneSupplying = Instant.now();
+        IO.println("Duration of supplying: " + Duration.between(start, doneSupplying).toMillis() + " ms");
+
+        // wait for every CF to complete
+//        tasks.forEach(CompletableFuture::join);
+
+        List<Quotation> results = tasks
+                .stream()
+                .map(CompletableFuture::join)
+                .toList();
 
         IO.println("Results: " + results);
 
         var end = Instant.now();
-        IO.println("Duration from supplying to getting result: " + Duration.between(start, end).toMillis() + " ms");
+        IO.println("Duration from supplying to getting the result: " + Duration.between(doneSupplying, end).toMillis() + " ms");
     }
 }

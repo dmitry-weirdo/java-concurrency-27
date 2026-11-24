@@ -24,7 +24,6 @@ public class GetQuotationCompletableFutureWithAccept {
         CompletableFuture<Void> cfc = CompletableFuture.supplyAsync(readFromC).thenAccept(IO::println);
 
         var doneSupplying = Instant.now();
-
         IO.println("Duration of supplying: " + Duration.between(start, doneSupplying).toMillis() + " ms");
 
         // CompletableFuture.join is blocking the main thread
